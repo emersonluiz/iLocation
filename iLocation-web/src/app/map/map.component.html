@@ -1,0 +1,38 @@
+<nav class="navbar navbar-dark bg-primary">
+    <a class="navbar-brand" href="#">iLocation</a>
+</nav>
+
+<div class="container-fluid">
+    
+    <br />
+
+    <nav class="navbar navbar-light" style="background-color: #e3f2fd;">
+        <div *ngIf="!history">
+            <span class="badge badge-pill badge-success">Online</span> &nbsp;
+            <span class="badge badge-pill badge-warning">No Transactions</span> &nbsp;
+            <span class="badge badge-pill badge-danger">Offline</span>
+        </div>
+        <button *ngIf="history" type="button" class="btn btn-info" (click)="onBack()">Back to All</button>
+    </nav>
+
+    <agm-map 
+    [latitude]="lat"
+    [longitude]="lng">
+    <agm-marker 
+        *ngFor="let m of markers; let i = index"
+        [latitude]="m.latitude"
+        [longitude]="m.longitude"
+        [iconUrl]="m.status==='Online'?green:(m.status==='NoTransactions'?yellow:red)">
+        
+        <agm-info-window [isOpen]="false">
+        <strong>IMEI: {{m.device.imei}}</strong>
+        <div>PHONE: {{m.device.number}}</div>
+        <div>DATE: {{m.locationDate | date:'dd/MM/yyyy HH:mm'}}</div>
+        <div class="link" (click)="onHistory(m.device.imei)">+ See History</div>
+        </agm-info-window>
+        
+    </agm-marker>
+    </agm-map>
+
+    
+</div>

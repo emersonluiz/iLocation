@@ -1,0 +1,9 @@
+agm-map {
+    height: 600px;
+}
+
+.link {
+    color: #1E90FF;
+    cursor: pointer;
+    margin-top: 10px;
+}
